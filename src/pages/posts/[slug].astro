@@ -1,0 +1,79 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import formatDate from '@/utils/formatDate';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'posts'>;
+};
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <main class="post mx-auto flex w-full max-w-prose flex-col gap-4">
+    <header role="presentation">
+      <h1 class="text-md">
+        {post.data.title} - {formatDate(post.data.publishedAt)}
+      </h1>
+      <p class="italic">{post.data.description}</p>
+    </header>
+
+    <Content />
+<!-- 
+    <section class="border-2 border-neutral-500 px-5 py-2 rounded-md">
+      <h3 class="text-xs mb-3">Comparte tu opinion</h3>
+      <div class="flex gap-2">
+        <div class="flex flex-col">
+          <label for="username" class="text-slate-300 p-0 m-0"
+            >Nombre de usuario</label
+          >
+          <input
+            class="w-40 resize-none bg-neutral-700 mt-2 rounded-md h-10 p-3 text-slate-200 focus:outline-none"
+            type="text"
+            name="username"
+            id="username"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label for="email" class="text-slate-300 p-0 m-0">Correo</label>
+          <input
+            class="w-48 resize-none bg-neutral-700 mt-2 rounded-md h-10 p-3 text-slate-200 focus:outline-none"
+            type="email"
+            name="correo"
+            id="correo"
+          />
+        </div>
+      </div>
+      <div class="mt-4">
+        <label for="emacomentarioil" class="text-slate-300 p-0 m-0"
+          >Comentario</label
+        >
+        <textarea
+          class="w-full resize-none bg-neutral-700 mt-2 rounded-md h-24 p-3 text-slate-200 focus:outline-none"
+          name="comentario"></textarea>
+      </div>
+      <button
+        class="
+        w-full
+        mt-2
+        bg-transparent hover:bg-neutral-500 text-slate-200 font-semibold
+        hover:text-white py-2 px-4 border border-neutral-300 hover:border-transparent rounded"
+      >
+        Enviar
+      </button>
+    </section> -->
+  </main>
+</Layout>

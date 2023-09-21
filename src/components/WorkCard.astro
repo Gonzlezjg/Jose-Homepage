@@ -1,0 +1,68 @@
+---
+import convertAsteriskToStrongTag from '@/utils/convertAsteriskToStrongTag';
+
+type Props = {
+  title: string;
+  techs: string[];
+  description: string;
+  challenge?: string;
+  workTime: string;
+};
+
+const { title, techs, description, challenge, workTime } = Astro.props;
+---
+
+<div
+  class="group flex justify-center md:max-w-full max-w-lg flex-col gap-2 rounded-md border border-neutral-700 p-4 transition-all duration-75 ease-in-out hover:-translate-y-2 hover:border-neutral-400 h-20 md:h-16 bg-gradient-to-r hover:from-neutral-900 hover:to-neutral-950"
+  id="work-card"
+>
+  <div
+    class="flex w-full flex-col justify-between gap-2 md:flex-row md:items-center"
+  >
+    <p
+      class="text-xl text-neutral-300 group-hover:text-neutral-00"
+      set:html={convertAsteriskToStrongTag(title)}
+    />
+    <p class="italic"><span class="not-italic">Duración: </span>{workTime}</p>
+    <div class="flex flex-row items-center gap-4"></div>
+  </div>
+  <div class="overflow-hidden">
+    <div class="mb-2">
+      <p class="font-bold mb-1">Tecnologías:</p>
+      <span set:html={convertAsteriskToStrongTag(techs.toString())} />
+    </div>
+
+    <div class="mb-2">
+      <p class="font-bold mb-1">Cargo:</p>
+      <p set:html={convertAsteriskToStrongTag(description)} />
+    </div>
+
+    {
+      challenge && (
+        <div class="mb-2">
+          <p class="font-bold mb-1">Retos:</p>
+          <p>{challenge}</p>
+        </div>
+      )
+    }
+  </div>
+</div>
+<script>
+  const workCards = document.querySelectorAll('#work-card');
+
+  workCards.forEach((divWorkCard) => {
+    divWorkCard.addEventListener('click', (event) => {
+      event.stopPropagation();
+
+      if (divWorkCard.classList.contains('h-full')) {
+        divWorkCard.classList.remove('h-full');
+        divWorkCard.classList.add('h-20');
+        divWorkCard.classList.add('md:h-16');
+      } else {
+        divWorkCard.classList.remove('h-20');
+        divWorkCard.classList.remove('md:h-16');
+        divWorkCard.classList.add('h-full');
+      }
+    });
+  });
+</script>
