@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import { SITE_URL } from './src/data/config';
 
-import node from "@astrojs/node";
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,10 +14,11 @@ export default defineConfig({
     syntaxHighlight: 'shiki',
     shikiConfig: {
       theme: 'nord',
-      wrap: false
-    }
+      wrap: false,
+    },
   },
   adapter: node({
-    mode: "standalone"
-  })
+    mode: 'standalone',
+  }),
+  site: 'https://Gonzlezjg.github.io',
 });
