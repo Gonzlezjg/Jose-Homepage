@@ -15,4 +15,5 @@ export default defineConfig({
     },
   },
   site: 'https://Gonzlezjg.github.io',
+  base: '/Jose-Homepage',
 });
