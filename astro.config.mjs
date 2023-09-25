@@ -14,6 +14,5 @@ export default defineConfig({
       wrap: false,
     },
   },
-  site: 'https://Gonzlezjg.github.io',
   base: '/Jose-Homepage',
 });
