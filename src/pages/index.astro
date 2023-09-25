@@ -18,6 +18,8 @@ import works from '@/data/work';
 const posts = (await getCollection('posts')).sort(function (first, second) {
   return second.data.publishedAt.getTime() - first.data.publishedAt.getTime();
 });
+let initialPath = '/Jose-Homepage';
+
 ---
 
 <Layout>
@@ -49,7 +51,7 @@ const posts = (await getCollection('posts')).sort(function (first, second) {
       <header class="flex w-full flex-row justify-between gap-2">
         <h3 class="text-lg text-neutral-100">Ultimas publicaciones</h3>
         <Link
-          href="/posts"
+          href={initialPath + "/posts"}
           label="Ver todos los posts"
           isUnderline
           target="_self"
